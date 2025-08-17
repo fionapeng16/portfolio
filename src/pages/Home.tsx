@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiExternalLink, FiGithub, FiArrowRight } from 'react-icons/fi';
-import ProjectModal from '../components/ProjectModal';
+import IDONTMINDModal from '../components/IDONTMINDModal';
+import EndOverdoseModal from '../components/EndOverdoseModal';
+import AmazonModal from '../components/AmazonModal';
+import PasswordProtectedModal from '../components/PasswordProtectedModal';
+import FEMModal from '../components/FEMModal';
 
 interface Project {
   id: number;
@@ -21,6 +25,7 @@ interface Experience {
   company: string;
   role: string;
   period: string;
+  location: string;
   description: string[];
   technologies: string[];
 }
@@ -28,50 +33,48 @@ interface Experience {
 const projects: Project[] = [
   {
     id: 1,
-    title: "idontmind",
-    description: "Mental health tracking app with personalized insights and coping strategies",
-    longDescription: "A comprehensive mental health application that helps users track their emotional well-being through daily check-ins, mood tracking, and personalized insights. Features include coping strategy recommendations, progress visualization, and a supportive community platform.",
-    technologies: ["React Native", "Node.js", "MongoDB", "Express", "Chart.js", "Firebase"],
+    title: "IDONTMIND",
+    description: "Built a React Native mental health app serving 147K+ users with personalized tracking and visualizations",
+    longDescription: "Features I built:\n\n📊 Behavioral tracking & trend visualization → Users could log mental health patterns and see insights.\n\n☁️ Cloud storage → Integrated AWS S3 for media and data.\n\n🔗 Scalable backend → Node.js + MongoDB to handle high traffic.\n\n🎨 User-first design → Biweekly sprint collaboration with designers on responsive UI.\n\nImpact: Launched to 147,000+ users, supporting a global audience with tools for better mental health awareness.\n\nTech Stack: React Native, Node.js, MongoDB, Python, AWS S3",
+    technologies: ["React Native", "MongoDB", "Node.js", "Python", "AWS S3"],
     image: "/idontmind.jpeg",
-    githubUrl: "https://github.com/yourusername/idontmind",
-    liveUrl: "https://idontmind-app.com",
+    githubUrl: "https://github.com/lablueprint/idontmind",
+    liveUrl: "https://idontmind.com/",
     category: "Mobile App",
     featured: true
   },
   {
     id: 2,
     title: "End Overdose",
-    description: "Educational platform for overdose prevention and harm reduction training",
-    longDescription: "An interactive educational platform designed to teach users how to recognize signs of overdose and provide life-saving interventions. Features gamified learning modules, progress tracking, certification programs, and community resources for harm reduction.",
-    technologies: ["React", "Node.js", "PostgreSQL", "Express", "WebGL", "Three.js"],
+    description: "Created a gamified overdose-prevention education platform, now adopted by 15+ schools and teaching 1,200+ students",
+    longDescription: "End Overdose needed a way to make overdose-prevention education engaging for teens. I developed a full-stack web platform with interactive lessons, real-time progress tracking, and admin dashboards for teachers.\n\nAdoption: 15+ Los Angeles schools\n\nReach: 1,200+ students educated\n\nEngagement: 3× higher compared to prior teaching methods\n\nThe platform blended Next.js and Firebase with game-like learning mechanics, helping educators deliver life-saving knowledge in a format that resonates with students.\n\nTech Stack: Next.js, Node.js, Firebase, Tailwind CSS",
+    technologies: ["Next.js", "Node.js", "Firebase", "Tailwind CSS"],
     image: "/end-overdose.jpeg",
-    githubUrl: "https://github.com/yourusername/end-overdose",
-    liveUrl: "https://endoverdose.net",
+    githubUrl: "https://github.com/lablueprint/end-overdose",
+    liveUrl: "https://endoverdose.net/",
     category: "Web Platform",
     featured: true
   },
   {
     id: 3,
     title: "Amazon",
-    description: "E-commerce platform with advanced search and recommendation systems",
-    longDescription: "A full-stack e-commerce application featuring product search, user authentication, shopping cart functionality, and personalized product recommendations. Built with modern web technologies and integrated payment processing.",
-    technologies: ["React", "Node.js", "MongoDB", "Express", "Stripe API", "AWS"],
+    description: "Designed secure, large-scale systems for Amazon Payments, including an approval workflow and reconciliation service.",
+    longDescription: "The Challenge: Amazon's payments platform processes millions of transactions daily. Manual inefficiencies in approvals and reconciliation caused delays and high support ticket volume.\n\nMy Solutions:\n\nModular Approval System → Architected an end-to-end workflow built with React, TypeScript, Java, and AWS UI Polaris. This improved approval throughput by 20%, and scaled seamlessly across CI/CD pipelines.\n\nReconciliation Service → Built a Next.js SSR backend delivering structured payment data on customer order pages, cutting ~300,000 annual support contacts and simplifying transaction-level auditing.\n\nImpact: 20% efficiency boost, 300K fewer support tickets/year, improved reliability for millions of global transactions.\n\nTech Stack: React, TypeScript, Java, AWS UI Polaris, Next.js, CI/CD",
+    technologies: ["React", "TypeScript", "Java", "AWS UI Polaris", "Next.js"],
     image: "/amazon.jpeg",
-    githubUrl: "https://github.com/yourusername/amazon-clone",
-    liveUrl: "https://amazon-clone-demo.com",
-    category: "E-commerce",
+    liveUrl: "https://www.amazon.com/",
+    category: "Amazon Payments",
     featured: true
   },
   {
     id: 4,
-    title: "FEM",
-    description: "Frontend Mentor challenges with modern web development solutions",
-    longDescription: "A collection of frontend development challenges completed from Frontend Mentor, showcasing responsive design, accessibility, and modern CSS techniques. Each project demonstrates clean code practices and pixel-perfect implementations.",
-    technologies: ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Framer Motion"],
+    title: "FEM Magazine",
+    description: "Led a full redesign of UCLA's FEM Magazine website, making it faster, more accessible, and mobile-friendly",
+    longDescription: "Before:\n\n• Long page load times\n• Non-optimized for mobile\n• Accessibility compliance gaps\n\nAfter (my work):\n\n• Rebuilt site with React, Django, Java, Tailwind CSS\n• Cut page load times by 35%\n• Improved user retention by 20%\n• Mobile-responsive and ADA-accessible\n\nThis redesign not only improved user experience but also gave FEM a modern publishing platform to reach and engage a larger digital audience.\n\nTech Stack: React, Django, Tailwind CSS, Java",
+    technologies: ["Java", "React", "Tailwind CSS", "Django"],
     image: "/fem.jpeg",
-    githubUrl: "https://github.com/yourusername/frontend-mentor",
-    liveUrl: "https://fem-challenges.com",
-    category: "Frontend",
+    liveUrl: "https://femmagazine.com/",
+    category: "Web Platform",
     featured: true
   }
 ];
@@ -79,58 +82,51 @@ const projects: Project[] = [
 const experiences: Experience[] = [
   {
     id: 1,
-    company: "Snapchat",
-    role: "Software Engineer Intern",
-    period: "May 2024 - Aug 2024",
+    company: "Amazon",
+    role: "Software Engineering Intern",
+    period: "June 2025 - Present",
+    location: "Seattle, WA",
     description: [
-      "Implemented the full software development life cycle for an internal tooling application on the platform engineering/infrastructure team, providing real-time data visibility to 150+ data scientists for AB testing. Engaged in the full scope from project planning to requirement analysis, design, coding, and deployment.",
-      "Developed a data platform service on the Snap Cloud Console, streamlining the process for editing metrics with automated GitHub pull requests. Programmed Python API calls to run SQL queries on a SpannerDB nonrelational database, performing CRUD operations. Connected the endpoints to a frontend graph data lineage with 300+ metrics."
+      "Architected and launched an end-to-end modular approval system in Amazon's payments platform (React, TypeScript, Java, AWS UI Polaris), boosting transaction efficiency by 20% and streamlining deployment through CI/CD pipelines.",
+      "Built a Next.js SSR backend service delivering structured payment data on order pages, cutting ~300K annual support contacts and streamlining post-purchase reconciliation for millions of transactions."
     ],
-    technologies: ["Python", "React", "SpannerDB", "TypeScript", "GitHub API"]
+    technologies: ["React", "TypeScript", "Java", "AWS UI Polaris", "Next.js", "CI/CD"]
   },
   {
     id: 2,
-    company: "Snapchat",
-    role: "Software Engineer Intern",
-    period: "May 2023 - Aug 2023",
+    company: "End Overdose",
+    role: "Full Stack Developer",
+    period: "Oct 2024 - June 2025",
+    location: "Los Angeles, CA",
     description: [
-      "Collaborated in a cross-functional team of 6 to develop FoodSmart, a functional feature prototype for Snapchat that dynamically populates the maps page with geolocation-based markers to empower users in the discovery of nearby food resource programs.",
-      "Our work culminated in a Product Pitch to Snap's Executives, demonstrating the potential impact of location-based food resource discovery for Snapchat users."
+      "Developed a full-stack education platform using Next.js, Node.js, Firebase, and Tailwind CSS, adopted by 15+ LA schools to teach overdose prevention to 1,200+ students through interactive, gamified lessons.",
+      "Implemented real-time progress tracking and school admin dashboards, driving 3x higher student engagement."
     ],
-    technologies: ["React Native", "JavaScript", "OpenAI API", "Firebase", "CSS", "react-native-maps"]
+    technologies: ["Next.js", "Node.js", "Firebase", "Tailwind CSS"]
   },
   {
     id: 3,
-    company: "Valuenex",
-    role: "Software Engineer Intern",
-    period: "Jun 2022 - Aug 2022",
+    company: "IDONTMIND",
+    role: "Mobile Application Developer",
+    period: "Sept 2023 - July 2024",
+    location: "Los Angeles, CA",
     description: [
-      "Developed and maintained web applications using modern frontend frameworks and backend technologies.",
-      "Collaborated with cross-functional teams to deliver high-quality software solutions."
+      "Engineered and deployed a personalized React Native mobile mental health app serving 147K+ users, leveraging MongoDB, Node.js, Python, and AWS S3 to analyze behavioral patterns and visualize trends.",
+      "Collaborated in agile biweekly sprints using Git and Figma to build responsive UI and scalable backend services."
     ],
-    technologies: ["React", "Node.js", "MongoDB", "Express"]
+    technologies: ["React Native", "MongoDB", "Node.js", "Python", "AWS S3", "Git", "Figma"]
   },
   {
     id: 4,
-    company: "Global Green",
-    role: "Software Developer",
-    period: "Jan 2022 - May 2022",
+    company: "Pioneer Research Institute",
+    role: "Research Intern (with Prof. Suleyman Uludag)",
+    period: "Mar - Aug 2023",
+    location: "San Francisco, CA",
     description: [
-      "Built sustainable technology solutions for environmental impact tracking.",
-      "Implemented data visualization tools for environmental metrics and reporting."
+      "Conducted research study at the University of Michigan and authored a peer-reviewed paper (Imperfect EleGANce) on racial and gender bias in CycleGAN, a generative machine learning model, using PyTorch, NumPy, and Google Colab.",
+      "Named Regeneron STS Semifinalist ($4,000 award) and awarded the Pioneer Catalyst Award for research impact."
     ],
-    technologies: ["Python", "Django", "PostgreSQL", "D3.js"]
-  },
-  {
-    id: 5,
-    company: "TransCanWork",
-    role: "Frontend Developer",
-    period: "Sep 2021 - Dec 2021",
-    description: [
-      "Developed responsive web applications for transportation and logistics management.",
-      "Created intuitive user interfaces for complex workflow management systems."
-    ],
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Redux"]
+    technologies: ["PyTorch", "NumPy", "Google Colab", "Machine Learning", "Research"]
   }
 ];
 
@@ -176,7 +172,7 @@ const Home: React.FC = () => {
       <div className="fixed left-8 bottom-8 z-40 hidden lg:block">
         <div className="flex flex-col items-center space-y-6">
           <motion.a
-            href="https://github.com/yourusername"
+            href="https://github.com/fionapeng16"
             target="_blank"
             rel="noopener noreferrer"
             className="text-text-muted hover:text-[#583722] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
@@ -188,7 +184,7 @@ const Home: React.FC = () => {
             </svg>
           </motion.a>
           <motion.a
-            href="https://linkedin.com/in/yourusername"
+            href="https://linkedin.com/in/fionapeng01"
             target="_blank"
             rel="noopener noreferrer"
             className="text-text-muted hover:text-[#583722] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
@@ -245,7 +241,7 @@ const Home: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               >
-                I'm a <span className="text-[#583722] font-medium">Full-Stack Developer</span> dreaming of a more compassionate world built on <span className="text-[#583722] font-medium">empathy</span> — leveraging <span className="text-[#7FB3C7] font-medium">human-centered</span> technology solutions to reach it.ᵕ̈
+                I'm a <span className="text-[#583722] dark:text-[#D4A574] font-medium">Full-Stack Developer</span> dreaming of a more compassionate world built on <span className="text-[#583722] dark:text-[#D4A574] font-medium">empathy</span> — leveraging <span className="text-[#7FB3C7] font-medium">human-centered</span> technology solutions to reach it.ᵕ̈
               </motion.p>
               
 
@@ -267,7 +263,7 @@ const Home: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <span className="text-gradient font-medium">01.</span> Some things I've built
+                <span className="text-gradient font-medium">01.</span> Some Things I've Built
               </motion.h2>
               <motion.div 
                 className="w-24 h-0.5 bg-[#BDD7DE]"
@@ -295,7 +291,7 @@ const Home: React.FC = () => {
                 className="group cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-soft hover:shadow-soft-lg transition-all duration-500 hover:shadow-gray-200/50">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden shadow-soft hover:shadow-soft-lg transition-all duration-500 hover:shadow-gray-200/50 dark:hover:shadow-gray-900/50">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     {/* Left Side - Project Image */}
                     <div className="relative h-80 lg:h-full overflow-hidden">
@@ -312,27 +308,27 @@ const Home: React.FC = () => {
                     {/* Right Side - Project Info */}
                     <div className="p-8 lg:p-10 flex flex-col justify-center">
                       <div className="mb-4">
-                        <span className="inline-block text-sm font-mono text-[#583722] bg-[#BDD7DE] px-4 py-2 rounded-full border border-[#BDD7DE] mb-4">
+                        <span className="inline-block text-sm font-mono text-[#583722] dark:text-[#583722] bg-[#BDD7DE] dark:bg-[#BDD7DE]/80 px-4 py-2 rounded-full border border-[#BDD7DE] dark:border-[#BDD7DE]/60 mb-4">
                           {project.category}
                         </span>
                       </div>
                       
-                      <h3 className="text-3xl lg:text-4xl font-semibold text-text-primary mb-6 leading-tight group-hover:text-[#583722] transition-colors duration-300">
+                      <h3 className="text-3xl lg:text-4xl font-semibold text-text-primary dark:text-black mb-6 leading-tight group-hover:text-[#583722] dark:group-hover:text-[#583722] transition-colors duration-300">
                         {project.title}
                       </h3>
                       
-                      <p className="text-lg text-text-secondary leading-relaxed mb-8">
+                      <p className="text-lg text-text-secondary dark:text-[#583722] leading-relaxed mb-8">
                         {project.description}
                       </p>
 
                       {/* Technologies */}
                       <div className="mb-8">
-                        <h4 className="text-sm font-medium text-text-muted mb-3 uppercase tracking-wide">Technologies</h4>
+                        <h4 className="text-sm font-medium text-text-muted dark:text-black mb-3 uppercase tracking-wide">Technologies</h4>
                         <div className="flex flex-wrap gap-2">
                           {project.technologies.map((tech, techIndex) => (
                             <span
                               key={tech}
-                              className="text-sm text-text-muted bg-warm-gray/50 px-3 py-1.5 rounded-full border border-soft-brown/50"
+                              className="text-sm text-text-muted dark:text-[#583722] bg-warm-gray/50 dark:bg-gray-700 px-3 py-1.5 rounded-full border border-soft-brown/50 dark:border-[#BDD7DE]"
                             >
                               {tech}
                             </span>
@@ -426,6 +422,7 @@ const Home: React.FC = () => {
                         <div className="ml-6">
                           <div className="font-medium text-text-primary">{exp.company}</div>
                           <div className="text-sm text-text-secondary">{exp.period}</div>
+                          <div className="text-xs text-text-muted">{exp.location}</div>
                         </div>
                       </motion.button>
                     ))}
@@ -440,13 +437,14 @@ const Home: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 shadow-soft"
+                  className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 shadow-soft"
                 >
                   <div className="mb-6">
                     <h3 className="text-2xl md:text-3xl font-semibold text-text-primary mb-2">
                       {selectedExperience.role} @ {selectedExperience.company}
                       <span className="text-[#583722] ml-2">{selectedExperience.period}</span>
                     </h3>
+                    <p className="text-text-muted">{selectedExperience.location}</p>
                   </div>
 
                   <div className="space-y-4 mb-8">
@@ -490,12 +488,34 @@ const Home: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Project Modal */}
+      {/* Project Modals */}
       {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        <>
+          {selectedProject.id === 1 && (
+            <IDONTMINDModal
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          )}
+          {selectedProject.id === 2 && (
+            <EndOverdoseModal
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          )}
+          {selectedProject.id === 3 && (
+            <PasswordProtectedModal
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          )}
+          {selectedProject.id === 4 && (
+            <FEMModal
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          )}
+        </>
       )}
 
       {/* Footer Signature */}

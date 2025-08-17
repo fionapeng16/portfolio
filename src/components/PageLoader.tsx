@@ -53,11 +53,11 @@ const PageLoader: React.FC = () => {
             repeatType: "reverse"
           }}
         >
-          <img 
-            src="/fp-logo.svg" 
-            alt="FP Logo" 
-            className="w-32 h-32 md:w-40 md:h-40"
-          />
+                            <img
+                    src="/fp-logo.svg"
+                    alt="FP Logo"
+                    className="w-32 h-32 md:w-40 md:h-40 dark:filter dark:brightness-0 dark:invert"
+                  />
         </motion.div>
         
         <motion.div

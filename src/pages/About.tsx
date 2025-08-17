@@ -40,7 +40,7 @@ const About = () => {
       <div className="fixed left-8 bottom-8 z-40 hidden lg:block">
         <div className="flex flex-col items-center space-y-6">
           <motion.a
-            href="https://github.com/yourusername"
+            href="https://github.com/fionapeng16"
             target="_blank"
             rel="noopener noreferrer"
             className="text-text-muted hover:text-[#583722] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
@@ -52,7 +52,7 @@ const About = () => {
             </svg>
           </motion.a>
           <motion.a
-            href="https://linkedin.com/in/yourusername"
+            href="https://linkedin.com/in/fionapeng01"
             target="_blank"
             rel="noopener noreferrer"
             className="text-text-muted hover:text-[#583722] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
