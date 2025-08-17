@@ -1,13 +1,367 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+:root {
+  --color-cream: #faf9f6;
+  --color-warm-gray: #f5f5f4;
+  --color-soft-brown: #e7e5e4;
+  --color-muted-green: #d1fae5;
+  --color-soft-blue: #dbeafe;
+  --color-warm-pink: #fce7f3;
+  --color-dusty-orange: #fed7aa;
+  --color-text-primary: #44403c;
+  --color-text-secondary: #78716c;
+  --color-text-muted: #a8a29e;
+  --color-border: #e7e5e4;
+  --color-shadow: rgba(0, 0, 0, 0.04);
+}
+
+/* Dark mode variables */
+.dark {
+  --color-cream: #1a1a1a;
+  --color-warm-gray: #2a2a2a;
+  --color-soft-brown: #3a3a3a;
+  --color-muted-green: #065f46;
+  --color-soft-blue: #1e3a8a;
+  --color-warm-pink: #831843;
+  --color-dusty-orange: #9a3412;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e5e7eb;
+  --color-text-muted: #d1d5db;
+  --color-border: #404040;
+  --color-shadow: rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(90deg, transparent 19px, #64748b 19px, #64748b 20px, transparent 20px),
+    linear-gradient(0deg, transparent 19px, #64748b 19px, #64748b 20px, transparent 20px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+  background-repeat: repeat;
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode body styles */
+.dark body {
+  background-color: #111111 !important;
+  background-image: 
+    linear-gradient(90deg, transparent 19px, #1f1f1f 19px, #1f1f1f 20px, transparent 20px),
+    linear-gradient(0deg, transparent 19px, #1f1f1f 19px, #1f1f1f 20px, transparent 20px) !important;
+}
+
+/* Dark mode navbar styles */
+.dark .fixed.top-0.left-0.right-0.z-50 {
+  background-color: rgba(17, 17, 17, 0.9) !important;
+  border-color: rgba(64, 64, 64, 0.5) !important;
+}
+
+/* Dark mode social icons */
+.dark .fixed.left-8.bottom-8 a,
+.dark .fixed.right-8.bottom-8 a {
+  background-color: rgba(55, 65, 81, 0.8) !important;
+  border-color: rgba(75, 85, 99, 1) !important;
+  color: #d1d5db !important;
+}
+
+.dark .fixed.left-8.bottom-8 a:hover,
+.dark .fixed.right-8.bottom-8 a:hover {
+  color: #BDD7DE !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-warm-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-soft-brown);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Soft focus styles */
+*:focus {
+  outline: 2px solid var(--color-muted-green);
+  outline-offset: 2px;
+}
+
+/* Custom selection */
+::selection {
+  background: var(--color-muted-green);
+  color: var(--color-text-primary);
+}
+
+
+
+/* Typography utilities */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Soft animations */
+@keyframes soft-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes soft-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-soft-fade-in {
+  animation: soft-fade-in 0.6s ease-out;
+}
+
+.animate-gentle-bounce {
+  animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 3s ease-in-out infinite;
+}
+
+/* Custom button styles */
+.btn-soft {
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-out;
+  @apply hover:shadow-soft-lg;
+  @apply active:scale-[0.98];
+}
+
+.btn-primary {
+  @apply btn-soft bg-[#BDD7DE] text-[#583722] border border-[#BDD7DE];
+  @apply hover:bg-[#BDD7DE]/80 hover:border-[#BDD7DE];
+}
+
+.btn-secondary {
+  @apply btn-soft bg-slate-100 text-slate-700 border border-slate-200;
+  @apply hover:bg-slate-200 hover:border-slate-300;
+}
+
+/* Card styles */
+.card-soft {
+  @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl;
+  @apply shadow-soft;
+  @apply transition-all duration-300 ease-out;
+  @apply hover:shadow-soft-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-900/50;
+}
+
+/* Dark mode specific styles */
+.dark .btn-primary {
+  @apply bg-[#4a5568] text-white border-[#4a5568];
+  @apply hover:bg-[#4a5568]/80;
+}
+
+.dark .btn-secondary {
+  @apply bg-gray-700 text-gray-200 border-gray-600;
+  @apply hover:bg-gray-600 hover:border-gray-500;
+}
+
+.dark .text-gradient {
+  color: #BDD7DE !important;
+}
+
+/* Force better text contrast in dark mode */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark .text-text-primary {
+  color: #ffffff !important;
+}
+
+.dark p,
+.dark .text-text-secondary {
+  color: #e5e7eb !important;
+}
+
+.dark .text-text-muted {
+  color: #d1d5db !important;
+}
+
+/* Dark mode card text */
+.dark .card-soft h3,
+.dark .card-soft .text-text-primary {
+  color: #f3f4f6 !important;
+}
+
+.dark .card-soft p,
+.dark .card-soft .text-text-secondary {
+  color: #d1d5db !important;
+}
+
+.dark .card-soft .text-text-muted {
+  color: #9ca3af !important;
+}
+
+/* Dark mode navbar text */
+.dark nav a,
+.dark nav button {
+  color: #e5e7eb !important;
+}
+
+.dark nav a:hover,
+.dark nav button:hover {
+  color: #ffffff !important;
+}
+
+/* Fix navbar active state in dark mode */
+.dark nav a.text-\[\#583722\] {
+  color: #1f2937 !important;
+  background-color: #BDD7DE !important;
+}
+
+/* Dark mode project titles need better contrast */
+.dark .group h3 {
+  color: #f9fafb !important;
+}
+
+/* Dark mode technology tags */
+.dark .text-text-muted.bg-warm-gray\/50 {
+  color: #9ca3af !important;
+  background-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Text accent */
+.text-gradient {
+  color: #583722;
+}
+
+/* Soft glow effect */
+.glow-soft {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+/* Custom link styles */
+.link-soft {
+  @apply text-[#583722] hover:text-[#583722]/80 transition-colors duration-200;
+  @apply underline decoration-[#BDD7DE]/50 underline-offset-2;
+  @apply hover:decoration-[#BDD7DE];
+}
+
+/* Custom text selection colors */
+::selection {
+  background-color: #fef3c7;
+  color: #583722;
+}
+
+::-moz-selection {
+  background-color: #fef3c7;
+  color: #583722;
+}
+
+/* Custom focus styles - remove default green outline */
+*:focus {
+  outline: none !important;
+}
+
+/* Custom focus styles for interactive elements */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #BDD7DE !important;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Remove focus outline from specific elements that don't need it */
+.logo-link:focus,
+.nav-link:focus {
+  outline: none !important;
+}
+
+/* Enhanced Typography */
+body {
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Monospace font for logo and special elements */
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/* Clean sans serif for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Beautiful italic styling */
+.italic, em, i {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Enhanced button and link fonts */
+.btn-primary, .btn-secondary, button, a {
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Code and technical text */
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1;
 }
