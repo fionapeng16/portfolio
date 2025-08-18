@@ -87,9 +87,7 @@ const About = () => {
       'a problem solver',
       'a (proud) INFJ',
       'a matcha connoisseur',
-      'an unapologetic git commit spammer',
       'a cat mom',
-      'a concert fanatic', 
     ];
     
     useEffect(() => {
