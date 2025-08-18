@@ -271,7 +271,7 @@ const About = () => {
                   
                   <div className="aspect-[5/4] rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image">
                     <img 
-                      src="/bp.jpeg" 
+                      src="/bp.JPEG" 
                       alt="LA Blueprint"
                       className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
                     />
@@ -299,7 +299,7 @@ const About = () => {
                   
                   <div className="aspect-[5/4] rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image">
                     <img 
-                      src="/ewi.jpeg" 
+                      src="/ewi.JPEG" 
                       alt="Society of Women Engineers"
                       className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
                     />
@@ -327,7 +327,7 @@ const About = () => {
                   
                   <div className="aspect-[5/4] rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image">
                     <img 
-                      src="/fast.jpg" 
+                      src="/fast.JPG" 
                       alt="FAST"
                       className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
                     />
@@ -467,6 +467,7 @@ const About = () => {
               </motion.div>
 
           {/* Scrapbook Collection Section - Full Width */}
+          {false && (
           <motion.div variants={itemVariants} className="mb-20">
             <h3 className="text-2xl font-medium text-text-primary mb-6">I love collecting things.</h3>
             <p className="text-lg text-text-secondary leading-relaxed mb-8">
@@ -601,6 +602,7 @@ const About = () => {
               </div>
             </div>
           </motion.div>
+          )}
 
           {/* Fun Facts Section */}
           <motion.div variants={itemVariants} className="mb-20">
