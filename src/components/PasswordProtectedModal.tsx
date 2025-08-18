@@ -115,9 +115,9 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                 </div>
 
                 {error && (
-                  <div className="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <FiAlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0" />
-                    <p className="text-sm text-red-700">{error}</p>
+                  <div className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <FiAlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                    <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
                   </div>
                 )}
 
@@ -201,7 +201,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                                     {/* Project Overview */}
                         <div className="mb-8">
                           <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                            <FiLock className="w-5 h-5 text-[#583722]" />
+                            <FiLock className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                             Project Overview
                           </h3>
                           <p className="text-lg text-text-secondary leading-relaxed">
@@ -210,12 +210,12 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                         </div>
 
             {/* NDA Notice */}
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-8">
+            <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-2xl p-6 mb-8">
               <div className="flex items-center gap-3 mb-3">
-                <FiLock className="w-6 h-6 text-amber-600" />
-                <h3 className="text-lg font-semibold text-amber-800">Details Protected Under NDA</h3>
+                <FiLock className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                <h3 className="text-lg font-semibold text-amber-800 dark:text-amber-200">Details Protected Under NDA</h3>
               </div>
-              <p className="text-amber-700 text-sm">
+              <p className="text-amber-700 dark:text-amber-300 text-sm">
                 This project contains <strong>confidential information about Amazon's internal systems</strong>. 
                 The details shared are <strong>publicly available metrics and general technical approaches</strong>.
               </p>
@@ -224,7 +224,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                                     {/* The Challenge */}
                         <div className="mb-8">
                           <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                            <FiAlertTriangle className="w-5 h-5 text-[#583722]" />
+                            <FiAlertTriangle className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                             The Challenge
                           </h3>
                           <p className="text-lg text-text-secondary leading-relaxed">
@@ -235,7 +235,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                                     {/* My Solutions */}
                         <div className="mb-8">
                           <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                            <FiCheckCircle className="w-5 h-5 text-[#583722]" />
+                            <FiCheckCircle className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                             My Solutions
                           </h3>
               <div className="space-y-6">
@@ -249,10 +249,10 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                     This improved <strong>approval throughput by 20%</strong>, and scaled <strong>seamlessly across CI/CD pipelines</strong>.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">React</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">TypeScript</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">Java</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">AWS UI Polaris</span>
+                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">React</span>
+                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">TypeScript</span>
+                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">Java</span>
+                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">AWS UI Polaris</span>
                   </div>
                 </motion.div>
 
@@ -266,9 +266,9 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                     cutting <strong>~300,000 annual support contacts</strong> and simplifying <strong>transaction-level auditing</strong>.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">Next.js</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">SSR</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">Backend</span>
+                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">Next.js</span>
+                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">SSR</span>
+                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">Backend</span>
                   </div>
                 </motion.div>
               </div>
@@ -277,7 +277,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                                     {/* Impact Metrics */}
                         <div className="mb-8">
                           <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                            <FiTrendingUp className="w-5 h-5 text-[#583722]" />
+                            <FiTrendingUp className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                             Impact
                           </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -285,7 +285,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                   whileHover={{ y: -5 }}
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">20%</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">20%</div>
                   <div className="text-text-secondary font-medium">Efficiency Boost</div>
                   <div className="text-sm text-text-muted mt-2">Approval Throughput</div>
                 </motion.div>
@@ -294,7 +294,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                   whileHover={{ y: -5 }}
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">300K+</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">300K+</div>
                   <div className="text-text-secondary font-medium">Fewer Support Tickets</div>
                   <div className="text-sm text-text-muted mt-2">Per Year</div>
                 </motion.div>
@@ -303,7 +303,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                   whileHover={{ y: -5 }}
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">Millions</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">Millions</div>
                   <div className="text-text-secondary font-medium">Global Transactions</div>
                   <div className="text-sm text-text-muted mt-2">Improved Reliability</div>
                 </motion.div>
@@ -313,7 +313,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                                     {/* Technologies */}
                         <div className="mb-8">
                           <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
-                            <FiDatabase className="w-5 h-5 text-[#583722]" />
+                            <FiDatabase className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                             Tech Stack
                           </h3>
               <div className="flex flex-wrap gap-3">
@@ -321,7 +321,7 @@ const PasswordProtectedModal: React.FC<PasswordProtectedModalProps> = ({ project
                   <motion.span
                     key={tech}
                     whileHover={{ scale: 1.05, y: -1 }}
-                    className="bg-[#BDD7DE]/30 text-[#583722] px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
+                    className="bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
                   >
                     {tech}
                   </motion.span>

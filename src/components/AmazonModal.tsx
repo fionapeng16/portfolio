@@ -54,7 +54,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
               onClick={onClose}
               className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-all duration-300 hover:scale-110 border border-gray-200"
             >
-              <FiX className="w-5 h-5 text-text-primary" />
+              <FiX className="w-5 h-5 text-black" />
             </button>
             <div className="absolute bottom-4 left-4">
               <span className="text-sm font-mono text-[#583722] bg-[#BDD7DE] px-4 py-2 rounded-full border border-[#BDD7DE]">
@@ -79,7 +79,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] px-4 py-2 rounded-lg transition-all duration-300 border border-[#BDD7DE]"
+                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] dark:text-[#583722] px-4 py-2 rounded-lg transition-all duration-300 border border-[#BDD7DE]"
                   >
                     <FiGithub className="w-4 h-4" />
                     <span className="text-sm font-medium">GitHub</span>
@@ -104,7 +104,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
             {/* Project Overview */}
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-text-primary mb-6 flex items-center gap-3">
-                <FiInfo className="w-6 h-5 text-[#583722]" />
+                <FiInfo className="w-6 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Project Overview
               </h3>
               <div className="bg-[#BDD7DE]/10 rounded-2xl p-6 border border-[#BDD7DE]/30">
@@ -117,8 +117,8 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
             {/* NDA Notice */}
             <div className="bg-[#BDD7DE]/10 rounded-2xl p-6 mb-8 border border-[#BDD7DE]/30">
               <div className="flex items-center gap-3 mb-3">
-                <FiShield className="w-6 h-6 text-[#583722]" />
-                <h3 className="text-lg font-semibold text-[#583722]">Details Protected Under NDA</h3>
+                <FiShield className="w-6 h-6 text-[#583722] dark:text-[#D4A574]" />
+                <h3 className="text-lg font-semibold text-[#583722] dark:text-[#D4A574]">Details Protected Under NDA</h3>
               </div>
               <p className="text-text-secondary text-sm">
                 This project contains <strong>confidential information about Amazon's internal systems</strong>. 
@@ -129,7 +129,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
             {/* The Challenge */}
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-text-primary mb-6 flex items-center gap-3">
-                <FiAlertTriangle className="w-6 h-5 text-[#583722]" />
+                <FiAlertTriangle className="w-6 h-5 text-[#583722] dark:text-[#D4A574]" />
                 The Challenge
               </h3>
               <div className="bg-[#BDD7DE]/10 rounded-2xl p-6 border border-[#BDD7DE]/30">
@@ -156,10 +156,10 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
                     This improved <strong>approval throughput by 20%</strong>, and scaled <strong>seamlessly across CI/CD pipelines</strong>.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">React</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">TypeScript</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">Java</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">AWS UI Polaris</span>
+                                      <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">React</span>
+                  <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">TypeScript</span>
+                  <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">Java</span>
+                  <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">AWS UI Polaris</span>
                   </div>
                 </motion.div>
 
@@ -173,9 +173,9 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
                     cutting <strong>~300,000 annual support contacts</strong> and simplifying <strong>transaction-level auditing</strong>.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">Next.js</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/30">SSR</span>
-                    <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] px-2 py-1 rounded border border-[#BDD7DE]/50">Backend</span>
+                                      <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">Next.js</span>
+                  <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/30">SSR</span>
+                  <span className="text-xs bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-2 py-1 rounded border border-[#BDD7DE]/50">Backend</span>
                   </div>
                 </motion.div>
               </div>
@@ -184,7 +184,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
             {/* Impact Metrics */}
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-text-primary mb-6 flex items-center gap-3">
-                <FiTrendingUp className="w-6 h-5 text-[#583722]" />
+                <FiTrendingUp className="w-6 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Impact
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -192,7 +192,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
                   whileHover={{ y: -5 }}
                   className="bg-white rounded-xl p-6 border border-[#BDD7DE]/30 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">20%</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">20%</div>
                   <div className="text-text-secondary font-medium">Efficiency Boost</div>
                   <div className="text-sm text-text-muted mt-2">Approval Throughput</div>
                 </motion.div>
@@ -201,7 +201,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
                   whileHover={{ y: -5 }}
                   className="bg-white rounded-xl p-6 border border-[#BDD7DE]/30 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">300K+</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">300K+</div>
                   <div className="text-text-secondary font-medium">Fewer Support Tickets</div>
                   <div className="text-sm text-text-muted mt-2">Per Year</div>
                 </motion.div>
@@ -210,7 +210,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
                   whileHover={{ y: -5 }}
                   className="bg-white rounded-xl p-6 border border-[#BDD7DE]/30 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">Millions</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">Millions</div>
                   <div className="text-text-secondary font-medium">Global Transactions</div>
                   <div className="text-sm text-text-muted mt-2">Improved Reliability</div>
                 </motion.div>
@@ -220,7 +220,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
             {/* Technologies */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
-                <FiDatabase className="w-5 h-5 text-[#583722]" />
+                <FiDatabase className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-3">
@@ -228,7 +228,7 @@ const AmazonModal: React.FC<AmazonModalProps> = ({ project, onClose }) => {
                   <motion.span
                     key={tech}
                     whileHover={{ scale: 1.05, y: -1 }}
-                    className="bg-[#BDD7DE]/30 text-[#583722] px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
+                    className="bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
                   >
                     {tech}
                   </motion.span>

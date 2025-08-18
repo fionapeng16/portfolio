@@ -54,7 +54,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
               onClick={onClose}
               className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-all duration-300 hover:scale-110 border border-gray-200"
             >
-              <FiX className="w-5 h-5 text-text-primary" />
+              <FiX className="w-5 h-5 text-black" />
             </button>
             <div className="absolute bottom-4 left-4">
               <span className="text-sm font-mono text-[#583722] bg-[#BDD7DE] px-4 py-2 rounded-full border border-[#BDD7DE]">
@@ -79,7 +79,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] px-4 py-2 rounded-lg transition-all duration-300 border border-[#BDD7DE]"
+                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] dark:text-[#583722] px-4 py-2 rounded-lg transition-all duration-300 border border-[#BDD7DE]"
                   >
                     <FiGithub className="w-4 h-4" />
                     <span className="text-sm font-medium">GitHub</span>
@@ -104,7 +104,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
             {/* Project Overview */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiInfo className="w-5 h-5 text-[#583722]" />
+                <FiInfo className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Project Overview
               </h3>
               <p className="text-lg text-text-secondary leading-relaxed">
@@ -115,7 +115,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
             {/* Story Section */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiBookOpen className="w-5 h-5 text-[#583722]" />
+                <FiBookOpen className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 The Story
               </h3>
               <p className="text-lg text-text-secondary leading-relaxed">
@@ -126,7 +126,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
             {/* Key Metrics */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiTarget className="w-5 h-5 text-[#583722]" />
+                <FiTarget className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Key Metrics
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -134,7 +134,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
                   whileHover={{ y: -5 }}
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">15+</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">15+</div>
                   <div className="text-text-secondary font-medium"><strong>Los Angeles Schools</strong></div>
                   <div className="text-sm text-text-muted mt-2">Platform Adoption</div>
                 </motion.div>
@@ -143,7 +143,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
                   whileHover={{ y: -5 }}
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">1,200+</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">1,200+</div>
                   <div className="text-text-secondary font-medium"><strong>Students Educated</strong></div>
                   <div className="text-sm text-text-muted mt-2">Direct Impact</div>
                 </motion.div>
@@ -152,7 +152,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
                   whileHover={{ y: -5 }}
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
-                  <div className="text-3xl font-bold text-[#583722] mb-2">3×</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">3×</div>
                   <div className="text-text-secondary font-medium"><strong>Higher Engagement</strong></div>
                   <div className="text-sm text-text-muted mt-2">vs. Traditional Methods</div>
                 </motion.div>
@@ -162,7 +162,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
             {/* Platform Features */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
-                <FiTrendingUp className="w-5 h-5 text-[#583722]" />
+                <FiTrendingUp className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Platform Features
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -188,7 +188,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
             {/* Technologies */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
-                <FiBook className="w-5 h-5 text-[#583722]" />
+                <FiBook className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-3">
@@ -196,7 +196,7 @@ const EndOverdoseModal: React.FC<EndOverdoseModalProps> = ({ project, onClose })
                   <motion.span
                     key={tech}
                     whileHover={{ scale: 1.05, y: -1 }}
-                    className="bg-[#BDD7DE]/30 text-[#583722] px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
+                    className="bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
                   >
                     {tech}
                   </motion.span>

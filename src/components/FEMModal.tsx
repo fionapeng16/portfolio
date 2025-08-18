@@ -54,7 +54,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
               onClick={onClose}
               className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-all duration-300 hover:scale-110 border border-gray-200"
             >
-              <FiX className="w-5 h-5 text-text-primary" />
+              <FiX className="w-5 h-5 text-black" />
             </button>
             <div className="absolute bottom-4 left-4">
               <span className="text-sm font-mono text-[#583722] bg-[#BDD7DE] px-4 py-2 rounded-full border border-[#BDD7DE]">
@@ -79,7 +79,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] px-4 py-2 rounded-lg transition-all duration-300 border border-[#BDD7DE]"
+                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] dark:text-[#583722] px-4 py-2 rounded-full border border-[#BDD7DE]"
                   >
                     <FiGithub className="w-4 h-4" />
                     <span className="text-sm font-medium">GitHub</span>
@@ -104,7 +104,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
             {/* Project Overview */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiInfo className="w-5 h-5 text-[#583722]" />
+                <FiInfo className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Project Overview
               </h3>
               <p className="text-lg text-text-secondary leading-relaxed">
@@ -115,7 +115,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
             {/* Before/After Comparison */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiClock className="w-5 h-5 text-[#583722]" />
+                <FiClock className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Before & After
               </h3>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -176,7 +176,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
             {/* Performance Improvements */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiTrendingUp className="w-5 h-5 text-[#583722]" />
+                <FiTrendingUp className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Performance Improvements
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -185,7 +185,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
 
-                  <div className="text-3xl font-bold text-[#583722] mb-2">35%</div>
+                  <div className="text-3xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">35%</div>
                   <div className="text-text-secondary font-medium">Faster Load Times</div>
                   <div className="text-sm text-text-muted mt-2">Page Performance</div>
                 </motion.div>
@@ -195,7 +195,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
                   className="bg-white dark:bg-gray-700 rounded-xl p-6 border border-[#BDD7DE]/30 dark:border-[#BDD7DE]/20 shadow-soft text-center"
                 >
 
-                  <div className="text-2xl font-bold text-[#583722] mb-2">20%</div>
+                  <div className="text-2xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">20%</div>
                   <div className="text-text-secondary font-medium">User Retention</div>
                   <div className="text-sm text-text-muted mt-2">Engagement Boost</div>
                 </motion.div>
@@ -205,7 +205,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
             {/* Key Features */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
-                <FiSmartphone className="w-5 h-5 text-[#583722]" />
+                <FiSmartphone className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Key Features
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -231,7 +231,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
             {/* Technologies */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
-                <FiDatabase className="w-5 h-5 text-[#583722]" />
+                <FiDatabase className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-3">
@@ -239,7 +239,7 @@ const FEMModal: React.FC<FEMModalProps> = ({ project, onClose }) => {
                   <motion.span
                     key={tech}
                     whileHover={{ scale: 1.05, y: -1 }}
-                    className="bg-[#BDD7DE]/30 text-[#583722] px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
+                    className="bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
                   >
                     {tech}
                   </motion.span>

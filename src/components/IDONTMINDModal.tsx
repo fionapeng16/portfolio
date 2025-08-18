@@ -54,7 +54,7 @@ const IDONTMINDModal: React.FC<IDONTMINDModalProps> = ({ project, onClose }) => 
               onClick={onClose}
               className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-all duration-300 hover:scale-110 border border-gray-200"
             >
-              <FiX className="w-5 h-5 text-text-primary" />
+              <FiX className="w-5 h-5 text-black" />
             </button>
             <div className="absolute bottom-4 left-4">
               <span className="text-sm font-mono text-[#583722] bg-[#BDD7DE] px-4 py-2 rounded-full border border-[#BDD7DE]">
@@ -79,7 +79,7 @@ const IDONTMINDModal: React.FC<IDONTMINDModalProps> = ({ project, onClose }) => 
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] px-4 py-2 rounded-lg transition-all duration-300 border border-[#BDD7DE]"
+                    className="flex items-center gap-2 bg-[#BDD7DE] hover:bg-[#BDD7DE]/80 text-[#583722] dark:text-[#583722] px-4 py-2 rounded-lg transition-all duration-300 border border-[#BDD7DE]"
                   >
                     <FiGithub className="w-4 h-4" />
                     <span className="text-sm font-medium">GitHub</span>
@@ -104,7 +104,7 @@ const IDONTMINDModal: React.FC<IDONTMINDModalProps> = ({ project, onClose }) => 
             {/* Project Overview */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiInfo className="w-5 h-5 text-[#583722]" />
+                <FiInfo className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Project Overview
               </h3>
               <p className="text-lg text-text-secondary leading-relaxed">
@@ -115,11 +115,11 @@ const IDONTMINDModal: React.FC<IDONTMINDModalProps> = ({ project, onClose }) => 
             {/* Impact Stats */}
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-4">
-                <FiUsers className="w-5 h-5 text-[#583722]" />
+                <FiUsers className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 <h3 className="text-xl font-semibold text-text-primary">Impact</h3>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-[#583722] mb-2">147,000+</div>
+                <div className="text-4xl font-bold text-[#583722] dark:text-[#D4A574] mb-2">147,000+</div>
                 <div className="text-text-secondary"><strong>users supported</strong> with <strong>personalized tools</strong></div>
               </div>
             </div>
@@ -127,7 +127,7 @@ const IDONTMINDModal: React.FC<IDONTMINDModalProps> = ({ project, onClose }) => 
             {/* Features I Built */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-3">
-                <FiSmartphone className="w-5 h-5 text-[#583722]" />
+                <FiSmartphone className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Features I Built
               </h3>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -176,7 +176,7 @@ const IDONTMINDModal: React.FC<IDONTMINDModalProps> = ({ project, onClose }) => 
             {/* Technologies */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
-                <FiDatabase className="w-5 h-5 text-[#583722]" />
+                <FiDatabase className="w-5 h-5 text-[#583722] dark:text-[#D4A574]" />
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-3">
@@ -184,7 +184,7 @@ const IDONTMINDModal: React.FC<IDONTMINDModalProps> = ({ project, onClose }) => 
                   <motion.span
                     key={tech}
                     whileHover={{ scale: 1.05, y: -1 }}
-                    className="bg-[#BDD7DE]/30 text-[#583722] px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
+                    className="bg-[#BDD7DE]/30 text-[#583722] dark:text-white px-4 py-2 rounded-full text-sm font-medium border border-[#BDD7DE]"
                   >
                     {tech}
                   </motion.span>

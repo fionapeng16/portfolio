@@ -155,17 +155,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 pt-20 overflow-x-hidden transition-colors duration-300">
-      <div 
-        className="absolute inset-0 opacity-100 dark:opacity-30 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #cbd5e1 1px, transparent 1px)',
-          backgroundSize: '20px 20px',
-          backgroundPosition: '10px 10px',
-          height: '100%',
-          minHeight: '100%'
-        }}
-      ></div>
+    <div className="min-h-screen pt-20 overflow-x-hidden transition-colors duration-300">
       <div className="relative z-10">
       
       {/* Left Side - Social Icons (Sticky) */}
@@ -175,7 +165,7 @@ const Home: React.FC = () => {
             href="https://github.com/fionapeng16"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text-muted hover:text-[#583722] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
+            className="text-text-muted hover:text-[#583722] dark:hover:text-[#D4A574] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
             whileHover={{ y: -3, scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -187,7 +177,7 @@ const Home: React.FC = () => {
             href="https://linkedin.com/in/fionapeng01"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text-muted hover:text-[#583722] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
+            className="text-text-muted hover:text-[#583722] dark:hover:text-[#D4A574] transition-colors duration-300 p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 shadow-soft hover:shadow-soft-lg"
             whileHover={{ y: -3, scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -308,16 +298,16 @@ const Home: React.FC = () => {
                     {/* Right Side - Project Info */}
                     <div className="p-8 lg:p-10 flex flex-col justify-center">
                       <div className="mb-4">
-                        <span className="inline-block text-sm font-mono text-[#583722] dark:text-[#583722] bg-[#BDD7DE] dark:bg-[#BDD7DE]/80 px-4 py-2 rounded-full border border-[#BDD7DE] dark:border-[#BDD7DE]/60 mb-4">
+                        <span className="inline-block text-sm font-mono text-[#583722] bg-[#BDD7DE] dark:bg-[#BDD7DE]/80 px-4 py-2 rounded-full border border-[#BDD7DE] dark:border-[#BDD7DE]/60 mb-4">
                           {project.category}
                         </span>
                       </div>
                       
-                      <h3 className="text-3xl lg:text-4xl font-semibold text-text-primary dark:text-black mb-6 leading-tight group-hover:text-[#583722] dark:group-hover:text-[#583722] transition-colors duration-300">
+                      <h3 className="text-3xl lg:text-4xl font-semibold text-text-primary dark:text-black mb-6 leading-tight group-hover:text-[#583722] dark:group-hover:text-[#D4A574] transition-colors duration-300">
                         {project.title}
                       </h3>
                       
-                      <p className="text-lg text-text-secondary dark:text-[#583722] leading-relaxed mb-8">
+                      <p className="text-lg text-text-secondary dark:text-[#D4A574] leading-relaxed mb-8">
                         {project.description}
                       </p>
 
@@ -328,7 +318,7 @@ const Home: React.FC = () => {
                           {project.technologies.map((tech, techIndex) => (
                             <span
                               key={tech}
-                              className="text-sm text-text-muted dark:text-[#583722] bg-warm-gray/50 dark:bg-gray-700 px-3 py-1.5 rounded-full border border-soft-brown/50 dark:border-[#BDD7DE]"
+                              className="text-sm text-text-muted dark:text-[#D4A574] bg-warm-gray/50 dark:bg-gray-700 px-3 py-1.5 rounded-full border border-soft-brown/50 dark:border-[#BDD7DE]"
                             >
                               {tech}
                             </span>
@@ -355,7 +345,7 @@ const Home: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="text-text-muted hover:text-[#583722] transition-colors duration-200 p-2 hover:bg-warm-gray/30 rounded-lg"
+                            className="text-text-muted hover:text-[#583722] dark:hover:text-[#D4A574] transition-colors duration-200 p-2 hover:bg-warm-gray/30 rounded-lg"
                           >
                             <FiExternalLink className="w-5 h-5" />
                           </a>
@@ -442,7 +432,7 @@ const Home: React.FC = () => {
                   <div className="mb-6">
                     <h3 className="text-2xl md:text-3xl font-semibold text-text-primary mb-2">
                       {selectedExperience.role} @ {selectedExperience.company}
-                      <span className="text-[#583722] ml-2">{selectedExperience.period}</span>
+                      <span className="text-[#583722] dark:text-[#D4A574] ml-2">{selectedExperience.period}</span>
                     </h3>
                     <p className="text-text-muted">{selectedExperience.location}</p>
                   </div>
@@ -450,7 +440,7 @@ const Home: React.FC = () => {
                   <div className="space-y-4 mb-8">
                     {selectedExperience.description.map((desc, index) => (
                       <div key={index} className="flex items-start gap-3">
-                        <div className="text-[#583722] mt-2">▷</div>
+                        <div className="text-[#583722] dark:text-[#D4A574] mt-2">▷</div>
                         <p className="text-text-secondary leading-relaxed">{desc}</p>
                       </div>
                     ))}
