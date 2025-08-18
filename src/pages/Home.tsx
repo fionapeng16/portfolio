@@ -58,7 +58,7 @@ const projects: Project[] = [
   {
     id: 3,
     title: "Amazon",
-    description: "Designed secure, large-scale systems for Amazon Payments, including an approval workflow and reconciliation service.",
+    description: "Developed secure, large-scale systems for Amazon Payments, including an approval workflow and reconciliation service.",
     longDescription: "The Challenge: Amazon's payments platform processes millions of transactions daily. Manual inefficiencies in approvals and reconciliation caused delays and high support ticket volume.\n\nMy Solutions:\n\nModular Approval System → Architected an end-to-end workflow built with React, TypeScript, Java, and AWS UI Polaris. This improved approval throughput by 20%, and scaled seamlessly across CI/CD pipelines.\n\nReconciliation Service → Built a Next.js SSR backend delivering structured payment data on customer order pages, cutting ~300,000 annual support contacts and simplifying transaction-level auditing.\n\nImpact: 20% efficiency boost, 300K fewer support tickets/year, improved reliability for millions of global transactions.\n\nTech Stack: React, TypeScript, Java, AWS UI Polaris, Next.js, CI/CD",
     technologies: ["React", "TypeScript", "Java", "AWS UI Polaris", "Next.js"],
     image: "/amazon.jpeg",

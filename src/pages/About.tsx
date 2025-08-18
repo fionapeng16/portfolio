@@ -626,7 +626,7 @@ const About = () => {
 
             <div className="text-center mb-8">
               <p className="text-lg text-text-secondary leading-relaxed">
-                thanks for stopping by! <span className="text-pink-400">♥</span> scroll around, stay awhile.
+                thanks for stopping by! <span className="text-pink-400">♥</span>
               </p>
             </div>
 
