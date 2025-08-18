@@ -63,9 +63,11 @@ const useSingleTypewriter = (word: string, speed: number = 100) => {
 
 const About = () => {
   const rotatingWords = [
+    'a software builder',
+    'a problem solver',
     'a (proud) INFJ',
-    'an unapologetic git commit spammer',
     'a matcha connoisseur',
+    'an unapologetic git commit spammer',
     'a cat mom',
     'a concert fanatic', 
   ];
@@ -81,11 +83,13 @@ const About = () => {
     
     const baseText = 'my name is fiona, ';
     const descriptions = [
+      'a software builder',
+      'a problem solver',
       'a (proud) INFJ',
-      'an unapologetic git commit spammer',
       'a matcha connoisseur',
+      'an unapologetic git commit spammer',
       'a cat mom',
-      'a concert fanatic'
+      'a concert fanatic', 
     ];
     
     useEffect(() => {
