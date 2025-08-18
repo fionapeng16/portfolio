@@ -22,7 +22,9 @@ const Navbar = () => {
       label: 'Resume', 
       action: () => {
         console.log('Opening resume...');
-        window.open('/resume.pdf', '_blank');
+        // Use encoded URI to handle special characters like ':' in file name
+        const pdfPath = encodeURI('/Resume-8:17.pdf');
+        window.open(pdfPath, '_blank');
       }
     },
   ];

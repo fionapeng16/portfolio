@@ -3,8 +3,128 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import Miffy3D from '../components/Miffy3D';
 
+// Custom typing effect hook
+const useTypewriter = (words: string[], speed: number = 100, delay: number = 2000) => {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[currentWordIndex];
+    
+    if (isDeleting) {
+      if (currentText.length > 0) {
+        const timeout = setTimeout(() => {
+          setCurrentText(currentText.slice(0, -1));
+        }, speed / 2);
+        return () => clearTimeout(timeout);
+      } else {
+        setIsDeleting(false);
+        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+      }
+    } else {
+      if (currentText.length < currentWord.length) {
+        const timeout = setTimeout(() => {
+          setCurrentText(currentWord.slice(0, currentText.length + 1));
+        }, speed);
+        return () => clearTimeout(timeout);
+      } else {
+        const timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, delay);
+        return () => clearTimeout(timeout);
+      }
+    }
+  }, [currentText, currentWordIndex, isDeleting, words, speed, delay]);
+
+  return currentText;
+};
+
+// Custom hook for typing out a single word once
+const useSingleTypewriter = (word: string, speed: number = 100) => {
+  const [currentText, setCurrentText] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    if (isComplete) return;
+    
+    if (currentText.length < word.length) {
+      const timeout = setTimeout(() => {
+        setCurrentText(word.slice(0, currentText.length + 1));
+      }, speed);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsComplete(true);
+    }
+  }, [currentText, word, speed, isComplete]);
+
+  return currentText;
+};
+
 const About = () => {
-  // Remove the loading state and useEffect - loading should only happen on actual page refresh
+  const rotatingWords = [
+    'a (proud) INFJ',
+    'an unapologetic git commit spammer',
+    'a matcha connoisseur',
+    'a cat mom',
+    'a concert fanatic', 
+  ];
+  
+  const nameText = useSingleTypewriter('fiona', 100);
+  const typedText = useTypewriter(rotatingWords, 100, 2000);
+
+  // Custom hook for the specific typing sequence
+  const useNameSequenceTypewriter = () => {
+    const [currentText, setCurrentText] = useState('');
+    const [currentPhase, setCurrentPhase] = useState(0);
+    const [isBackspacing, setIsBackspacing] = useState(false);
+    
+    const baseText = 'my name is fiona, ';
+    const descriptions = [
+      'a (proud) INFJ',
+      'an unapologetic git commit spammer',
+      'a matcha connoisseur',
+      'a cat mom',
+      'a concert fanatic'
+    ];
+    
+    useEffect(() => {
+      const currentDescription = descriptions[currentPhase];
+      const fullText = baseText + currentDescription;
+      
+      if (isBackspacing) {
+        // Backspace only the description part
+        if (currentText.length > baseText.length) {
+          const timeout = setTimeout(() => {
+            setCurrentText(currentText.slice(0, -1));
+          }, 50); // Faster backspacing
+          return () => clearTimeout(timeout);
+        } else {
+          // Finished backspacing description, move to next phase
+          setIsBackspacing(false);
+          setCurrentPhase((prev) => (prev + 1) % descriptions.length);
+        }
+      } else {
+        // Typing animation - start from baseText
+        if (currentText.length < fullText.length) {
+          const timeout = setTimeout(() => {
+            setCurrentText(fullText.slice(0, currentText.length + 1));
+          }, 100);
+          return () => clearTimeout(timeout);
+        } else {
+          // Finished typing, wait then start backspacing
+          const timeout = setTimeout(() => {
+            setIsBackspacing(true);
+          }, 2000);
+          return () => clearTimeout(timeout);
+        }
+      }
+    }, [currentText, currentPhase, isBackspacing]);
+
+    return currentText;
+  };
+
+  const sequenceText = useNameSequenceTypewriter();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -82,23 +202,41 @@ const About = () => {
         >
           {/* Hero Section */}
           <motion.div variants={itemVariants} className="relative mb-20">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Text Content */}
-              <div className="text-left relative z-10">
-                <h1 className="text-5xl md:text-7xl font-light text-text-primary mb-6">
-                  Nice to meet you!
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+              {/* Text Content - Takes up 2/3 of the page */}
+              <div className="text-left relative z-10 lg:col-span-2">
+                <h1 className="text-3xl md:text-4xl font-light text-text-primary mb-4">
+                  Nice to meet you! :)
                 </h1>
-                <p className="text-xl md:text-2xl text-text-secondary leading-relaxed font-mono">
-                  I'm Fiona, a passionate full-stack developer who loves creating digital experiences that make a difference. 
-                  When I'm not coding, you'll find me exploring new technologies, contributing to open source, 
-                  or enjoying a good cup of coffee.
-                  <br />
-                  <span className="text-lg text-text-muted">(and probably debugging something at 2 AM)</span>
-                </p>
+                
+                <div className="text-2xl md:text-3xl text-text-secondary mb-8">
+                  <span className="text-gradient font-medium">
+                    {sequenceText}
+                    <span className="animate-pulse">|</span>
+                  </span>
+                </div>
+                
+                <div className="space-y-6 text-lg text-text-secondary leading-relaxed">
+                  <p>
+                    I'm a <span className="text-[#583722] dark:text-[#D4A574] font-medium">Full-Stack Developer</span> based in the Bay Area, passionate about using technology to create intuitive digital experiences that foster <span className="text-[#583722] dark:text-[#D4A574] font-medium">human connection</span>. My favorite projects are the ones that challenge me to think like both an engineer and creator, blending problem-solving with <span className="text-[#583722] dark:text-[#D4A574] font-medium">storytelling, empathy, and curiosity</span>.
+                  </p>
+                  
+                  <p>
+                    I'm currently at <span className="text-[#583722] dark:text-[#D4A574] font-medium">UCLA</span> studying <span className="text-[#7FB3C7] font-medium">Computer Science</span> with a minor in <span className="text-[#7FB3C7] font-medium">Film, TV, and Digital Media</span>, while actively building projects that push me to grow as a developer. My journey in tech started with curiosity and has grown into a passion for creating solutions that not only work, but actually <span className="text-[#583722] dark:text-[#D4A574] font-medium">enrich people's lives</span>. I care about writing clean, maintainable code and designing user experiences that are both <span className="text-[#583722] dark:text-[#D4A574] font-medium">functional</span> and <span className="text-[#583722] dark:text-[#D4A574] font-medium">impactful</span>.
+                  </p>
+                  
+                  <p>
+                    When I'm not coding, you'll find me editing my latest travel vlog, sipping matcha at a new café while watching <span className="text-[#583722] dark:text-[#D4A574] font-medium italic">Great British Bake Off</span>, and most likely falling into a late-night research rabbit hole. I'm a multi-hyphenate with a love for many things: technology, film, design, storytelling, and all the blurred lines in between.
+                  </p>
+                  
+                  <p className="text-center text-lg font-medium text-[#583722] dark:text-[#D4A574]">
+                    scroll to get to know me more! :D
+                  </p>
+                </div>
               </div>
               
-              {/* 3D Model */}
-              <div className="relative h-96 lg:h-[500px] w-full">
+              {/* 3D Model - Takes up 1/3 of the page */}
+              <div className="relative h-96 lg:h-[500px] w-full lg:col-span-1">
                 <Canvas
                   camera={{ position: [0, 0, 6], fov: 45 }}
                   className="w-full h-full rounded-2xl"
@@ -112,201 +250,409 @@ const About = () => {
                     rotation={[0, 0, 0]}
                   />
                 </Canvas>
-
               </div>
             </div>
           </motion.div>
 
-          {/* Personal Info Grid - Asymmetric layout */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
-            {/* About Me */}
-            <div className="space-y-6 relative">
-              <h2 className="text-3xl font-medium text-text-primary mb-6">About Me</h2>
-              <div className="space-y-4 text-text-secondary leading-relaxed">
-                <p className="font-mono">
-                  I'm currently pursuing my degree in Computer Science at UCLA while actively working on projects 
-                  that challenge me to grow as a developer. My journey in tech started with curiosity and 
-                  has evolved into a passion for building solutions that solve real-world problems.
-                </p>
-                <p>
-                  I believe in writing clean, maintainable code and creating user experiences that are 
-                  both beautiful and functional. My approach combines technical expertise with creative 
-                  problem-solving, always keeping the end user in mind.
-                </p>
-                <p className="font-mono text-sm">
-                  // Sometimes I overthink things, but that's how I learn!
+          {/* Communities Section - Full Width */}
+          <motion.div variants={itemVariants} className="mb-20">
+            <h3 className="text-2xl font-medium text-text-primary mb-3">Communities I Get to Grow With</h3>
+            <p className="text-lg text-text-secondary leading-relaxed mb-8 max-w-none w-full">
+              The communities I've been part of have shaped me in ways I never could have imagined. I carry pieces of each with me (lessons, memories, and friendships) and I'm deeply grateful for the mentors, peers, and support systems that continue to ground and inspire me.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* LA Blueprint */}
+              <div className="group relative cursor-pointer">
+                <div className="relative">
+                  {/* Scrapbook tape effect */}
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#BDD7DE] rounded-sm opacity-80 rotate-2 z-10"></div>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#7FB3C7] rounded-sm opacity-60 rotate-2 z-10"></div>
+                  
+                  <div className="aspect-[5/4] rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image">
+                    <img 
+                      src="/bp.jpeg" 
+                      alt="LA Blueprint"
+                      className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
+                    />
+                    {/* Hover Link only over image */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center p-6">
+                      <a href="https://lablueprint.org/" target="_blank" rel="noopener noreferrer" className="text-white underline text-sm">Visit Website</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3 text-center">
+                  <h4 className="font-medium text-text-primary">LA Blueprint</h4>
+                  <p className="text-sm text-text-muted">501(c)3 Nonprofit</p>
+                  <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+                  LA Blueprint has been the most impactful community of my college experience; I realized that before UCLA, I didn’t fully understand what it meant to grow alongside a team. Through this work, I’ve met the kindest and most ambitious people, while creating digital tools that make a tangible difference in the nonprofits we partner with. Next year, I’m taking on the role of a Developer Project Lead, where I’ll be guiding my own team of designers and developers.
                 </p>
               </div>
             </div>
 
-            {/* Quick Facts */}
-            <div className="space-y-6 relative">
-              <h2 className="text-3xl font-medium text-text-primary mb-6">Quick Facts</h2>
-              <div className="space-y-4">
-                <div className="card-soft p-6">
-                  <h3 className="font-medium text-text-primary mb-2">Education</h3>
-                  <p className="text-text-secondary">Bachelor of Science in Computer Science</p>
-                  <p className="text-sm text-text-muted">Expected Graduation: 2025</p>
+              {/* SWE */}
+              <div className="group relative cursor-pointer">
+                <div className="relative">
+                  {/* Scrapbook tape effect */}
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#BDD7DE] rounded-sm opacity-80 -rotate-2 z-10"></div>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#7FB3C7] rounded-sm opacity-60 -rotate-2 z-10"></div>
+                  
+                  <div className="aspect-[5/4] rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image">
+                    <img 
+                      src="/ewi.jpeg" 
+                      alt="Society of Women Engineers"
+                      className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
+                    />
+                    {/* Hover Link only over image */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center p-6">
+                      <a href="https://ucla.swe.org/" target="_blank" rel="noopener noreferrer" className="text-white underline text-sm">Visit Website</a>
+                    </div>
+                  </div>
                 </div>
-                
-                <div className="card-soft p-6">
-                  <h3 className="font-medium text-text-primary mb-2">Location</h3>
-                  <p className="text-text-secondary">Available for remote work worldwide</p>
+                <div className="mt-3 text-center">
+                  <h4 className="font-medium text-text-primary">Society of Women Engineers</h4>
+                  <p className="text-sm text-text-muted">SWE</p>
+                  <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+                  SWE has been one of the most supportive spaces in my journey as a woman in tech. This past year, I helped host Evening with Industry, our flagship networking dinner, after many late nights of planning (and packing-party marathons). Seeing over 200 students connect with 25+ companies made all the effort worth it. Beyond events, SWE has given me a community of women engineers who uplift one another, share advice, and remind me that I’m not navigating this path alone.
+                  </p>
+                </div>
+              </div>
+
+              {/* FAST */}
+              <div className="group relative cursor-pointer">
+                <div className="relative">
+                  {/* Scrapbook tape effect */}
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#BDD7DE] rounded-sm opacity-80 rotate-1 z-10"></div>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#7FB3C7] rounded-sm opacity-60 rotate-1 z-10"></div>
+                  
+                  <div className="aspect-[5/4] rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image">
+                    <img 
+                      src="/fast.jpg" 
+                      alt="FAST"
+                      className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
+                    />
+                    {/* Hover Link only over image */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center p-6">
+                      <a href="https://www.fastatucla.com/" target="_blank" rel="noopener noreferrer" className="text-white underline text-sm">Visit Website</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3 text-center">
+                  <h4 className="font-medium text-text-primary">FAST</h4>
+                  <p className="text-sm text-text-muted">Fashion & Student Trends at UCLA</p>
+                  <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+                  At FAST, I get to explore the intersections of fashion, creativity, and student culture. As part of the Production Committee, I helped plan our annual UCLA runway show and multiple photoshoots throughout the year. I’m constantly inspired by how FAST members express themselves with such creativity. Being part of that environment pushes me to experiment more boldly with my own ideas.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Side Projects Section - Full Width */}
+          <motion.div variants={itemVariants} className="mb-20">
+            <h3 className="text-2xl font-medium text-text-primary mb-3">Side Projects & Ventures</h3>
+            <p className="text-lg text-text-secondary leading-relaxed mb-8 max-w-none w-full">
+              Over the years, I've poured my curiosity into side projects that start as hobbies and grow into ways of sharing something meaningful with the world. Whether it's a creative venture, a small business, or just an experiment for fun, these projects remind me that exploration and making go hand in hand.
+            </p>
+            
+            <div className="space-y-12">
+              {/* Auralite Jewelry - Row 1 (image left, text right) */}
+              <div className="flex flex-col md:flex-row items-start gap-8">
+                {/* Image */}
+                <div className="relative md:w-5/12">
+                  {/* Scrapbook tape effect */}
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#D4A574] rounded-sm opacity-80 rotate-3 z-10"></div>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#583722] rounded-sm opacity-60 rotate-3 z-10"></div>
+                  <div className="aspect-square rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image relative">
+                    <img 
+                      src="/auralite.png" 
+                      alt="Auralite Jewelry"
+                      className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
+                    />
+                    {/* Hover Link only over image */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center p-6">
+                      <a 
+                        href="https://instagram.com/shopauralite" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-300 hover:text-blue-200 underline"
+                      >
+                        View Instagram
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {/* Text */}
+                <div className="md:w-7/12">
+                  <h4 className="font-medium text-text-primary">Auralite Jewelry</h4>
+                  <p className="text-sm text-text-muted">@shopauralite • $14K+ raised</p>
+                  <p className="mt-2 text-base md:text-lg text-text-secondary leading-relaxed">
+                    My sister and I started Auralite after losing a friend to suicide. We wanted to honor them by combining one of our shared passions, jewelry making, with raising awareness for mental health. What began as a small idea turned into something much bigger: together we’ve raised over $14K for nonprofits like NAMI and the Alan Hu Foundation, and created spaces for healing through positive psychology seminars with PhD professors, therapy dog workshops, and mental-health-themed jewelry sessions. It’s one of the most meaningful projects I’ve ever been part of, and a reminder of the power of community and creativity.
+                  </p>
+                </div>
+              </div>
+
+              {/* Food Instagram - Row 2 (text left, image right) */}
+              <div className="flex flex-col md:flex-row-reverse items-start gap-8">
+                {/* Image */}
+                <div className="relative md:w-5/12">
+                  {/* Scrapbook tape effect */}
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#D4A574] rounded-sm opacity-80 -rotate-1 z-10"></div>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#583722] rounded-sm opacity-60 -rotate-1 z-10"></div>
+                  <div className="aspect-square rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image relative">
+                    <img 
+                      src="/food.png" 
+                      alt="Food Instagram"
+                      className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
+                    />
+                    {/* Hover Link only over image */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center p-6">
+                      <a 
+                        href="https://instagram.com/fionashoradecomer" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-300 hover:text-blue-200 underline"
+                      >
+                        View Instagram
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {/* Text */}
+                <div className="md:w-7/12">
+                  <h4 className="font-medium text-text-primary">Food Instagram</h4>
+                  <p className="text-sm text-text-muted">@fionashoradecomer</p>
+                  <p className="mt-2 text-base md:text-lg text-text-secondary leading-relaxed">
+                    This little food account started as a way to keep track of all the amazing things I was eating in LA, but it’s grown into a scrapbook of my culinary adventures, as well as all the places I’ve traveled to. I love being adventurous with food: trying new cuisines, exploring hole-in-the-wall spots, and sharing recommendations with friends. Sometimes I scroll through my own feed when I’m hungry, which only makes me hungrier (but also makes me grateful for all the flavors I’ve gotten to try).
+                  </p>
+                </div>
+              </div>
+
+              {/* Video Editing - Row 3 (image left, text right) */}
+              <div className="flex flex-col md:flex-row items-start gap-8">
+                {/* Image */}
+                <div className="relative md:w-5/12">
+                  {/* Scrapbook tape effect */}
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#D4A574] rounded-sm opacity-80 rotate-2 z-10"></div>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-[#583722] rounded-sm opacity-60 rotate-2 z-10"></div>
+                  <div className="aspect-square rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg group/image relative">
+                    <img 
+                      src="/youtube.png" 
+                      alt="Video Editing"
+                      className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-300"
+                    />
+                    {/* Hover Link only over image */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center p-6">
+                      <a 
+                        href="https://youtube.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-300 hover:text-blue-200 underline"
+                      >
+                        View YouTube Channel
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {/* Text */}
+                <div className="md:w-7/12">
+                  <h4 className="font-medium text-text-primary">Video Editing</h4>
+                  <p className="text-sm text-text-muted">Lifestyle & Travel Vlogs</p>
+                  <p className="mt-2 text-base md:text-lg text-text-secondary leading-relaxed">
+                    Editing has become my favorite way of storytelling, and it’s something I’ve loved doing since I was a kid. I create long-form lifestyle and travel vlogs where I weave together clips, music, and my own personality into something that feels authentic. Vlogging lets me capture the small, chaotic moments I want to remember forever, and watching them back feels like reliving those memories. More than anything, it’s a way to share a little piece of my world with others. Ever since 3rd grade, I’ve wanted to make YouTube videos, and now, I’m living out that childhood dream.
+                  </p>
+                </div>
+              </div>
+                </div>
+              </motion.div>
+
+          {/* Scrapbook Collection Section - Full Width */}
+          <motion.div variants={itemVariants} className="mb-20">
+            <h3 className="text-2xl font-medium text-text-primary mb-6">I love collecting things.</h3>
+            <p className="text-lg text-text-secondary leading-relaxed mb-8">
+              There is something undeniably exhilarating about investing in yet another material object. Whether it's the hunt itself, or the satisfaction of organizing a perfectly nostalgic little archive, collecting brings me comfort in a world that can feel overwhelming.
+            </p>
+            
+            {/* Journal/Scrapbook Layout */}
+            <div className="relative bg-white dark:bg-gray-900 rounded-3xl p-12 border-2 border-gray-200 dark:border-gray-700 shadow-lg min-h-[600px]">
+              {/* Clean grid paper background */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:20px_20px] rounded-3xl opacity-40 dark:opacity-20"></div>
+              
+              {/* Left margin line for journal feel */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-red-400 dark:bg-red-500 opacity-60"></div>
+              
+              {/* Horizontal lines for writing */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0px,transparent_19px,#f3f4f6_19px,#f3f4f6_20px)] bg-[size:20px_20px] rounded-3xl opacity-60 dark:opacity-40"></div>
+              
+              {/* Collection Items Container - Now properly contained within paper */}
+              <div className="relative z-10 mt-8 w-full h-full">
+                {/* Top Row */}
+                <div className="flex justify-center items-start mb-16 gap-56">
+                  <div className="group cursor-pointer transform rotate-3 hover:scale-110 transition-transform duration-300">
+                    <div className="w-20 h-20 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/80x80/transparent/transparent?text=smiskis" 
+                        alt="smiskis"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      smiskis
+                    </div>
+                  </div>
+                  
+                  <div className="group cursor-pointer transform -rotate-2 hover:scale-110 transition-transform duration-300">
+                    <div className="w-24 h-24 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/96x96/transparent/transparent?text=hironos" 
+                        alt="hironos"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      hironos
+                    </div>
+                  </div>
                 </div>
 
-                <div className="card-soft p-6">
-                  <h3 className="font-medium text-text-primary mb-2">Interests</h3>
-                  <div className="flex flex-wrap gap-2">
-                                      <span className="text-sm bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] px-3 py-1 rounded-full border border-[#BDD7DE]">Web Development</span>
-                  <span className="text-sm bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] px-3 py-1 rounded-full border border-[#BDD7DE]">Open Source</span>
-                  <span className="text-sm bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] px-3 py-1 rounded-full border border-[#BDD7DE]">UI/UX Design</span>
-                  <span className="text-sm bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] px-3 py-1 rounded-full border border-[#BDD7DE]">Machine Learning</span>
+                {/* Middle Row */}
+                <div className="flex justify-center items-center mb-16 gap-48">
+                  <div className="group cursor-pointer transform rotate-1 hover:scale-110 transition-transform duration-300">
+                    <div className="w-28 h-28 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/112x112/transparent/transparent?text=turtles" 
+                        alt="turtle figurines"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      turtle figurines
+                    </div>
+                  </div>
+                  
+                  <div className="group cursor-pointer hover:scale-110 transition-transform duration-300">
+                    <div className="w-32 h-32 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/128x128/transparent/transparent?text=digicams" 
+                        alt="digicams"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      digicams
+                    </div>
+                  </div>
+                  
+                  <div className="group cursor-pointer transform -rotate-1 hover:scale-110 transition-transform duration-300">
+                    <div className="w-20 h-20 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/80x80/transparent/transparent?text=photobooth" 
+                        alt="photobooth strips"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      photobooth strips
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Row */}
+                <div className="flex justify-center items-end gap-56">
+                  <div className="group cursor-pointer transform rotate-2 hover:scale-110 transition-transform duration-300">
+                    <div className="w-24 h-24 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/96x96/transparent/transparent?text=perfumes" 
+                        alt="perfumes"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      perfumes
+                    </div>
+                  </div>
+                  
+                  <div className="group cursor-pointer transform -rotate-1 hover:scale-110 transition-transform duration-300">
+                    <div className="w-20 h-20 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/80x80/transparent/transparent?text=monchhichi" 
+                        alt="monchhichi"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      monchhichi
+                    </div>
+                  </div>
+                  
+                  <div className="group cursor-pointer transform rotate-1 hover:scale-110 transition-transform duration-300">
+                    <div className="w-28 h-28 bg-transparent">
+                      <img 
+                        src="https://via.placeholder.com/112x112/transparent/transparent?text=miffy" 
+                        alt="miffy"
+                        className="w-full h-full object-contain filter drop-shadow-lg"
+                      />
+                    </div>
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-lg whitespace-nowrap">
+                      miffy
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Skills Section - Organic grid */}
-          <motion.div variants={itemVariants} className="mb-20">
-            <h2 className="text-3xl font-medium text-text-primary text-center mb-12">Skills & Technologies</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <motion.div
-                whileHover={{ y: -8, scale: 1.03 }}
-                className="card-soft p-6"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] mb-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-text-primary mb-3">Frontend</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">React</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">TypeScript</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">Tailwind CSS</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -8, scale: 1.03 }}
-                className="card-soft p-6"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] mb-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-text-primary mb-3">Backend</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">Node.js</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">Python</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">Express</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -8, scale: 1.03 }}
-                className="card-soft p-6"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] mb-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
-                    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
-                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-text-primary mb-3">Database</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">MongoDB</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">PostgreSQL</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">SpannerDB</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -8, scale: 1.03 }}
-                className="card-soft p-6"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] mb-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-text-primary mb-3">Tools</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">Git</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">Docker</span>
-                  <span className="text-xs text-[#583722] dark:text-[#583722] bg-[#BDD7DE]/30 px-2 py-1 rounded border border-[#BDD7DE]">AWS</span>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
           {/* Fun Facts Section */}
           <motion.div variants={itemVariants} className="mb-20">
-            <h2 className="text-3xl font-medium text-text-primary text-center mb-12">Fun Facts About Me</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="card-soft p-6 text-center"
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] mb-4">
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-text-primary mb-2">Coffee Enthusiast</h3>
-                <p className="text-text-secondary text-sm">I can't start my day without a good cup of coffee. It's my fuel for coding!</p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="card-soft p-6 text-center"
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] mb-4">
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-text-primary mb-2">Plant Parent</h3>
-                <p className="text-text-secondary text-sm">I have a growing collection of plants that I'm learning to keep alive.</p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="card-soft p-6 text-center"
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#BDD7DE] text-[#583722] dark:text-[#D4A574] mb-4">
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-text-primary mb-2">Music Lover</h3>
-                <p className="text-text-secondary text-sm">I always have music playing while I code. It helps me focus and get into the zone.</p>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Call to Action - More playful */}
-          <motion.div variants={itemVariants} className="text-center">
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-soft">
-              <h3 className="text-2xl font-medium text-text-primary mb-4">Let's work together!</h3>
-              <p className="text-text-secondary mb-6 max-w-2xl mx-auto font-mono">
-                I'm always excited to take on new challenges and collaborate on interesting projects. 
-                Whether you have a specific project in mind or just want to chat about technology, 
-                I'd love to hear from you!
-                <br />
-                <span className="text-sm text-text-muted">(Coffee chats are my favorite)</span>
+            <h3 className="text-2xl font-medium text-text-primary mb-6">some more fun facts about me!</h3>
+            
+            <div className="space-y-4 mb-8">
+              <p className="text-lg text-text-secondary leading-relaxed">
+                • i studied abroad at the <span className="text-[#7FB3C7] font-medium">University of Cambridge, UK</span> last year where i dove into <span className="text-[#583722] dark:text-[#D4A574] font-medium">Jane Austen's life</span>, wrestled with <span className="text-[#583722] dark:text-[#D4A574] font-medium">Moral Philosophy</span>, and debated <span className="text-[#583722] dark:text-[#D4A574] font-medium">World Politics</span> with students from across the globe.
               </p>
-              <motion.button
-                whileHover={{ scale: 1.05, y: -3 }}
-                whileTap={{ scale: 0.98 }}
-                className="btn-primary"
-                onClick={() => window.location.href = '/contact'}
-              >
-                Get In Touch
-              </motion.button>
+              
+              <p className="text-lg text-text-secondary leading-relaxed">
+                • my favorite movie is <span className="text-[#583722] dark:text-[#D4A574] font-medium italic">Ponyo</span> (<span className="text-[#7FB3C7] font-medium">Studio Ghibli</span> classic)
+              </p>
+              
+              <p className="text-lg text-text-secondary leading-relaxed">
+                • i love staying active: <span className="text-[#583722] dark:text-[#D4A574] font-medium">hiking</span>, <span className="text-[#583722] dark:text-[#D4A574] font-medium">beach volleyball</span>, and <span className="text-[#583722] dark:text-[#D4A574] font-medium">running</span> are my reset buttons. and i recently just started <span className="text-[#7FB3C7] font-medium">climbing</span> - my newest hobby!
+              </p>
+            </div>
+
+            <div className="text-center mb-8">
+              <p className="text-lg text-text-secondary leading-relaxed">
+                thanks for stopping by! <span className="text-pink-400">♥</span> scroll around, stay awhile.
+              </p>
+            </div>
+
+            {/* Contact Links */}
+            <div className="text-center">
+              <p className="text-lg text-text-secondary mb-4">let's connect →</p>
+              <div className="flex justify-center space-x-6">
+                <a 
+                  href="https://linkedin.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#583722] dark:text-[#D4A574] font-medium italic"
+                >
+                  linkedin
+                </a>
+                <a 
+                  href="https://github.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#583722] dark:text-[#D4A574] font-medium italic"
+                >
+                  github
+                </a>
+                <a 
+                  href="mailto:your.email@example.com" 
+                  className="text-[#583722] dark:text-[#D4A574] font-medium italic"
+                >
+                  email
+                </a>
+              </div>
             </div>
           </motion.div>
         </motion.div>

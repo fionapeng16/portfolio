@@ -133,6 +133,26 @@ const experiences: Experience[] = [
 const Home: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<Experience>(experiences[0]);
+  const [currentTime, setCurrentTime] = useState<string>('');
+
+  // Update time every second
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+      setCurrentTime(timeString);
+    };
+
+    updateTime(); // Set initial time
+    const interval = setInterval(updateTime, 1000); // Update every second
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Remove the loading state and useEffect - loading should only happen on actual page refresh
 
@@ -234,6 +254,27 @@ const Home: React.FC = () => {
                 I'm a <span className="text-[#583722] dark:text-[#D4A574] font-medium">Full-Stack Developer</span> dreaming of a more compassionate world built on <span className="text-[#583722] dark:text-[#D4A574] font-medium">empathy</span> — leveraging <span className="text-[#7FB3C7] font-medium">human-centered</span> technology solutions to reach it.ᵕ̈
               </motion.p>
               
+              {/* Location and Time Display */}
+              <motion.div 
+                className="flex items-center justify-center gap-8 text-text-muted text-base font-mono mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              >
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Seattle, Washington</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span id="current-time">{currentTime}</span>
+                </div>
+              </motion.div>
 
             </div>
           </motion.div>
